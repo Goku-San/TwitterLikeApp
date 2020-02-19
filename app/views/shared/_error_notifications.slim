@@ -1,0 +1,13 @@
+- if object.errors.any?
+  #error-notification.alert.alert-danger role="alert"
+    = tag.button type: :button,
+      class: :close,
+      data: { dismiss: "alert" },
+      aria: { label: "Close" } do
+      = tag.span "&times;".html_safe, aria: { hidden: true }
+
+    ' The form contains #{pluralize object.errors.count, "error"}
+
+    ul
+      - object.errors.full_messages.each do |msg|
+        li style="list-style: none;" = msg

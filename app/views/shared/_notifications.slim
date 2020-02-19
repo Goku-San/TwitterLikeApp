@@ -1,0 +1,13 @@
+- unless flash[:alert]
+  #notifications
+    - flash.each do |msg_type, msg|
+      = tag.div id: msg_type, class: "alert alert-#{msg_type}", role: "alert" do
+        - if msg_type.eql?("danger") || msg_type.eql?("warning")
+          = tag.button type: :button,
+            id: "button",
+            class: :close,
+            data: { dismiss: "alert-#{msg_type}" },
+            aria: { label: "Close" } do
+            = tag.span "&times;".html_safe, aria: { hidden: true }
+
+        = sanitize msg

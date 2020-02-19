@@ -1,2 +1,24 @@
-h1 Users#_user_form
-p Find me in app/views/users/_user_form.slim
+= form_for user, url: signup_path do |f|
+  = render 'shared/error_notifications', object: f.object
+
+  .form-group
+    = f.label :name
+    = f.text_field :name, autofocus: true, class: "form-control"
+
+  .form-group
+    = f.label :email
+    = f.email_field :email, class: "form-control"
+
+  .form-group
+    = f.label :password do
+      ' Password
+      em [] (6 characters minimum)
+
+    = f.password_field :password, autocomplete: "off", class: "form-control"
+
+  .form-group
+    = f.label :password_confirmation
+    = f.password_field :password_confirmation, autocomplete: "off", class: "form-control"
+
+  .form-group
+    = f.submit "Create account", class: "btn btn-primary form-control"

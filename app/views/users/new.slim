@@ -1,6 +1,7 @@
 - provide :title, "Signup"
 
-h1 Users#new
-p Find me in app/views/users/new.slim
+h1 Sign up
 
-= render "user_form"
+.row
+  .col-sm-6.offset-3
+    = render "user_form", user: @user
