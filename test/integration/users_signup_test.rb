@@ -44,5 +44,7 @@ class UsersSignupTest < ActionDispatch::IntegrationTest
 
     assert_select 'div#notifications'
     assert_select 'div.alert-success'
+
+    assert logged_in?
   end
 end
