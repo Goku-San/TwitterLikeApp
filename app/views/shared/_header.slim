@@ -29,26 +29,26 @@ header.navbar.navbar-expand-lg.navbar-dark.bg-dark.fixed-top
             .dropdown-menu.dropdown-menu-right.bg-dark aria-labelledby="dropdownMenuOffset"
 
               a.dropdown-item href="#{user_path(current_user.id)}"
-                / i.fa.fa-user.mr-1
+                i.fa.fa-user.mr-1
                 | Profile
 
-              a.dropdown-item href="#"
-                / i.fa.fa-plus.mr-1
+              a.dropdown-item href="#{edit_user_path(current_user.id)}"
+                i.fa.fa-plus.mr-1
                 | Settings
 
               .dropdown-divider
 
               a.dropdown-item rel="nofollow" href="#{logout_path}" data-method="delete"
-                / i.fas.fa-sign-out-alt.mr-1
+                i.fas.fa-sign-out-alt.mr-1
                 | Log out
     - else
       ul.navbar-nav.ml-auto.sign-in-sign-out
         li.nav-item
           = link_to signup_path, class: "nav-link" do
-            / i.fas.fa-user-plus.mr-1
+            i.fas.fa-user-plus.mr-1
             | Sign up
 
         li.nav-item
           = link_to login_path, class: "nav-link" do
-            / i.fas.fa-sign-in-alt.mr-1
+            i.fas.fa-sign-in-alt.mr-1
             | Log in

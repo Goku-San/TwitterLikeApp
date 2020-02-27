@@ -3,18 +3,18 @@ class User < ApplicationRecord
 
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i.freeze
 
-  validates :name, presence: true, length: { minimum: 2, maximum: 50 }
+  validates :name, presence: true, length: { allow_blank: true, minimum: 2, maximum: 50 }
   validates :email,
             presence:   true,
             length:     { maximum: 100 },
-            format:     { with: VALID_EMAIL_REGEX },
+            format:     { allow_blank: true, with: VALID_EMAIL_REGEX },
             uniqueness: { case_sensitive: false }
 
   before_save { email.downcase! } # also works --> { self.email = email.downcase }
 
   has_secure_password
 
-  validates :password, presence: true, length: { minimum: 6 }
+  validates :password, presence: true, length: { minimum: 6 }, allow_nil: true
 
   # Returns the hash digest of the given string.
   def self.digest string

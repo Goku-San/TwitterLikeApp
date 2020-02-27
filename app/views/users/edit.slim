@@ -1,0 +1,12 @@
+- provide :title, "Edit profile"
+
+h1 Update your profile
+
+.row
+  .col-sm-6.offset-3
+    = render "user_form", user: @user, url: { url: user_path }, button_text: "Update account"
+
+    div
+      = image_tag (gravatar_for @user), class: "rounded float-left mr-1", size: "64x64"
+
+      = link_to "change", "http://gravatar.com/emails", target: "_blank", rel: 'noopener'

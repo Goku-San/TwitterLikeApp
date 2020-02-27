@@ -18,6 +18,18 @@ class UsersController < ApplicationController
     end
   end
 
+  def edit; end
+
+  def update
+    if @user.update user_params
+      redirect_to @user, flash: { success: "Profile updated successfully" }
+    else
+      render :edit
+    end
+  end
+
+  def destroy; end
+
   private
 
   def find_user_by_id

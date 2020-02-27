@@ -4,4 +4,4 @@ h1 Sign up
 
 .row
   .col-sm-6.offset-3
-    = render "user_form", user: @user
+    = render "user_form", user: @user, url: { url: signup_path }, button_text: "Create account"
