@@ -22,6 +22,15 @@ class ActiveSupport::TestCase
   def login_as user
     session[:user_id] = user.id
   end
+
+  def user_edit_path
+    get edit_user_path(@goku)
+
+    assert_template 'users/edit'
+
+    assert_select "form[action='/users/#{@goku.id}']"
+    # assert_select "form[action=\"/users/#{@goku.id}\"]"
+  end
 end
 
 class ActionDispatch::IntegrationTest

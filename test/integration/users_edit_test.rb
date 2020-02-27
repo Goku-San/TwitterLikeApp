@@ -2,18 +2,15 @@ require 'test_helper'
 
 class UsersEditTest < ActionDispatch::IntegrationTest
   def setup
-    @user = users :goku
-
-    get edit_user_path(@user)
-
-    assert_template 'users/edit'
-
-    assert_select "form[action='/users/#{@user.id}']"
-    # assert_select "form[action=\"/users/#{@user.id}\"]"
+    @goku = users :goku
   end
 
   test "unsuccessful edit" do
-    patch user_path(@user), params: {
+    log_in_as @goku
+
+    user_edit_path
+
+    patch user_path(@goku), params: {
       user: {
         name:                  "",
         email:                 "user@invalid",
@@ -29,10 +26,14 @@ class UsersEditTest < ActionDispatch::IntegrationTest
   end
 
   test "successful edit" do
+    log_in_as @goku
+
+    user_edit_path
+
     name  = "Valid User"
     email = "user@valid.com"
 
-    patch user_path(@user), params: {
+    patch user_path(@goku), params: {
       user: {
         name:                  name,
         email:                 email,
@@ -41,13 +42,25 @@ class UsersEditTest < ActionDispatch::IntegrationTest
       }
     }
 
-    assert_redirected_to @user
+    assert_redirected_to @goku
 
     assert_not flash.empty?
 
-    @user.reload
+    @goku.reload
 
-    assert_equal name,  @user.name
-    assert_equal email, @user.email
+    assert_equal name,  @goku.name
+    assert_equal email, @goku.email
+  end
+
+  test "edit with friendly forwarding" do
+    get edit_user_path(@goku)
+
+    assert_equal edit_user_url(@goku), session[:forwarding_url]
+
+    log_in_as @goku
+
+    assert_redirected_to edit_user_url(@goku)
+
+    assert_nil session[:forwarding_url]
   end
 end

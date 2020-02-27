@@ -10,7 +10,7 @@ class SessionsController < ApplicationController
 
       remember_user_or_not
 
-      redirect_to @user, flash: { success: "Welome back #{@user.name}" }
+      redirect_back_or @user, flash: { success: "Welome back #{@user.name}" }
     else
       flash.now[:danger] = "Invalid email or password combination"
       render :new

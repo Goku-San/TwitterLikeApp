@@ -1,5 +1,7 @@
 class UsersController < ApplicationController
+  before_action :logged_in_user,  only:   %i[edit update]
   before_action :find_user_by_id, except: %i[new create]
+  before_action :correct_user, only: %i[edit update]
 
   def show; end
 
@@ -32,8 +34,22 @@ class UsersController < ApplicationController
 
   private
 
+  def logged_in_user
+    return if logged_in?
+
+    store_location
+
+    redirect_to login_path, flash: { danger: "Please log in" }
+  end
+
   def find_user_by_id
     @user = User.find params[:id]
+  end
+
+  def correct_user
+    return if current_user.id == @user.id
+
+    redirect_to root_path, flash: { danger: "Not authorized!" }
   end
 
   def user_params

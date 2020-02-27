@@ -47,4 +47,16 @@ module SessionsHelper
 
     @current_user = nil
   end
+
+  # Redirects to stored location or default.
+  def redirect_back_or default, options = {}
+    redirect_to session[:forwarding_url] || default, options
+
+    session.delete :forwarding_url
+  end
+
+  # Stores the URL trying to be accessed.
+  def store_location
+    session[:forwarding_url] = request.original_url if request.get?
+  end
 end
