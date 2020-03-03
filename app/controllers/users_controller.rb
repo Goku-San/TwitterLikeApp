@@ -1,7 +1,11 @@
 class UsersController < ApplicationController
-  before_action :logged_in_user,  only:   %i[edit update]
-  before_action :find_user_by_id, except: %i[new create]
-  before_action :correct_user, only: %i[edit update]
+  before_action :logged_in_user,  only:   %i[index edit update]
+  before_action :find_user_by_id, except: %i[index new create]
+  before_action :correct_user,    only:   %i[edit update]
+
+  def index
+    @users = User.all
+  end
 
   def show; end
 

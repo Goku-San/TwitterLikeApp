@@ -6,12 +6,30 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
     @vanessa = users :vanessa
   end
 
-  test "should get new" do
-    assert_recognizes({ controller: "users", action: "new" }, "signup")
+  test "should redirect index when not logged in" do
+    get users_path
 
+    assert_redirected_to login_url
+  end
+
+  test "should get index when logged in" do
+    log_in_as @goku
+
+    get users_url
+
+    assert_response :success
+
+    assert_recognizes({ controller: "users", action: "index" }, "users")
+
+    assert_select "title", "Users | #{base_title}"
+  end
+
+  test "should get new" do
     get signup_url
 
     assert_response :success
+
+    assert_recognizes({ controller: "users", action: "new" }, "signup")
 
     assert_select "title", "Signup | #{base_title}"
   end
