@@ -1,10 +1,10 @@
 class UsersController < ApplicationController
-  before_action :logged_in_user,  only:   %i[index edit update]
+  before_action :logged_out_user,  only:   %i[index edit update]
   before_action :find_user_by_id, except: %i[index new create]
   before_action :correct_user,    only:   %i[edit update]
 
   def index
-    @users = User.all
+    @pagy, @users = pagy User.all, items: 10, size: [1, 1, 1, 1]
   end
 
   def show; end
@@ -38,7 +38,14 @@ class UsersController < ApplicationController
 
   private
 
-  def logged_in_user
+  # TODO: Fix sign up route when user is logged in
+  # def logged_in_user
+  #   return unless logged_in?
+
+  #   redirect_back fallback_location: '/', allow_other_host: false
+  # end
+
+  def logged_out_user
     return if logged_in?
 
     store_location

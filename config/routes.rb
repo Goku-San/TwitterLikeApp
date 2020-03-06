@@ -10,6 +10,9 @@ Rails.application.routes.draw do
   get  'signup', to: 'users#new'
   post 'signup', to: 'users#create'
 
+  # Custom route for pagy
+  get 'users/page/:page', to: 'users#index', as: :pagy
+
   resources :users, except: %i[new create]
 
   # Sessions login/logout

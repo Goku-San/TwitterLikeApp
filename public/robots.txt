@@ -1,1 +1,5 @@
 # See http://www.robotstxt.org/robotstxt.html for documentation on how to use the robots.txt file
+
+# Preventing crawlers to follow look-alike links on pagy
+User-agent: *
+Disallow: *__pagy_page__
