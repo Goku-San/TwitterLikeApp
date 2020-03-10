@@ -6,4 +6,8 @@ module UsersHelper
 
     gravatar_url
   end
+
+  def owner? user
+    current_user.id == user.id
+  end
 end

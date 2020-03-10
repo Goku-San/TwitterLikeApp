@@ -1,7 +1,8 @@
 class UsersController < ApplicationController
-  before_action :logged_out_user,  only:   %i[index edit update]
+  before_action :logged_out_user, only:   %i[index edit update destroy]
   before_action :find_user_by_id, except: %i[index new create]
   before_action :correct_user,    only:   %i[edit update]
+  before_action :admin_or_correct_user, only: :destroy
 
   def index
     @pagy, @users = pagy User.all, items: 10, size: [1, 1, 1, 1]
@@ -34,7 +35,19 @@ class UsersController < ApplicationController
     end
   end
 
-  def destroy; end
+  def destroy
+    if current_user.admin?
+      @user.destroy!
+
+      redirect_to users_url, flash: { success: "User deleted" }
+    elsif account_owner?
+      log_out
+
+      @user.destroy!
+
+      redirect_to root_url, flash: { info: "Sorry to see you go..." }
+    end
+  end
 
   private
 
@@ -58,12 +71,22 @@ class UsersController < ApplicationController
   end
 
   def correct_user
-    return if current_user.id == @user.id
+    return if account_owner?
 
     redirect_to root_path, flash: { danger: "Not authorized!" }
   end
 
+  def admin_or_correct_user
+    return if current_user.admin? || account_owner?
+
+    redirect_to users_path, flash: { danger: "Not authorized!" }
+  end
+
   def user_params
     params.require(:user).permit :name, :email, :password, :password_confirmation
+  end
+
+  def account_owner?
+    owner? @user
   end
 end

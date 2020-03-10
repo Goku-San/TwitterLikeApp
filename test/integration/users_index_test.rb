@@ -5,10 +5,11 @@ class UsersIndexTest < ActionDispatch::IntegrationTest
   include Pagy::Backend
 
   def setup
-    @goku = users :goku
+    @goku    = users :goku
+    @vanessa = users :vanessa
   end
 
-  test "index including pagination" do
+  test "index action including pagination and delete links as admin" do
     log_in_as @goku
 
     get users_path
@@ -34,6 +35,19 @@ class UsersIndexTest < ActionDispatch::IntegrationTest
     # Tests that there is at least 1 link displayed on the page!
     @users.each do |user|
       assert_select 'a[href=?]', user_path(user), text: user.name
+      assert_select 'a[href=?]', user_path(user), text: 'delete'
     end
+  end
+
+  test "account_owner sholud have delete link on index action" do
+    log_in_as @vanessa
+
+    # using custom route to get to page 2 where user is, so the test passes
+    # items size must be 10 users per page or the test fails!!
+    get pagy_path(2)
+
+    assert_template 'users/index'
+
+    assert_select 'a', text: 'delete', count: 1
   end
 end

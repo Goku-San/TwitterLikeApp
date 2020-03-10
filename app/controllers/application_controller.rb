@@ -3,4 +3,5 @@ class ApplicationController < ActionController::Base
 
   include Pagy::Backend # For pagination
   include SessionsHelper
+  include UsersHelper
 end

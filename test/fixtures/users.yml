@@ -1,4 +1,5 @@
 goku:
+  admin: true
   name: Goku
   email: goku@example.com
   password_digest: <%= User.digest('password') %>
@@ -19,8 +20,8 @@ malory:
   password_digest: <%= User.digest('password') %>
 
 <% 30.times do |n| %>
-user_<%= n %>:
-  name:  <%= "User #{n}" %>
-  email: <%= "user-#{n}@example.com" %>
+user_<%= n + 1 %>:
+  name:  <%= "User #{n + 1}" %>
+  email: <%= "user-#{n + 1}@example.com" %>
   password_digest: <%= User.digest('password') %>
 <% end %>
