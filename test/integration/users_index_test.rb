@@ -10,21 +10,21 @@ class UsersIndexTest < ActionDispatch::IntegrationTest
   end
 
   test "index action including pagination and delete links as admin" do
+    # Page argument MUST be set!!
+    # Items argument is optional, if you declare it in code, then you must delcare it here as well.
+    @pagy, @users = pagy User.all, items: 10, page: 2
+
     log_in_as @goku
 
-    get users_path
+    get users_path(page: 2)
 
     assert_template 'users/index'
 
     assert_select 'nav.pagination'
 
-    # Page argument MUST be set!!
-    # Items argument is optional, if you declare it in code, then you must delcare it here as well.
-    @pagy, @users = pagy User.all, items: 10, page: 1
-
     # Checking if @pagy object sets its vars correctly, not important.
     assert_equal 10, @pagy.items
-    assert_equal 1,  @pagy.page
+    assert_equal 2,  @pagy.page
 
     # This test is not important and it tests that only 10 links are displayed on page 1
     # Its based on the page argumnet(page: 1) from the above declaration!
@@ -34,6 +34,8 @@ class UsersIndexTest < ActionDispatch::IntegrationTest
 
     # Tests that there is at least 1 link displayed on the page!
     @users.each do |user|
+      assert user.activated?
+
       assert_select 'a[href=?]', user_path(user), text: user.name
       assert_select 'a[href=?]', user_path(user), text: 'delete'
     end

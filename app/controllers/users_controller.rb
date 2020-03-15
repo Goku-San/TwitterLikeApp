@@ -5,10 +5,14 @@ class UsersController < ApplicationController
   before_action :admin_or_correct_user, only: :destroy
 
   def index
-    @pagy, @users = pagy User.all, items: 10, size: [1, 1, 1, 1]
+    @pagy, @users = pagy User.activated_users, items: 10, size: [1, 1, 1, 1]
   end
 
-  def show; end
+  def show
+    return if @user.activated?
+
+    redirect_to root_url
+  end
 
   def new
     @user = User.new
@@ -18,8 +22,9 @@ class UsersController < ApplicationController
     @user = User.new user_params
 
     if @user.save
-      log_in @user
-      redirect_to @user, flash: { success: "Welcome #{@user.name}" }
+      @user.send_activation_email
+
+      redirect_to root_url, flash: { info: "Please check your email to activate your account!" }
     else
       render :new
     end

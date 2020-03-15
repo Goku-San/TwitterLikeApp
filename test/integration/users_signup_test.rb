@@ -8,6 +8,8 @@ class UsersSignupTest < ActionDispatch::IntegrationTest
 
     assert_select 'form#new_user'
     assert_select 'form[action="/signup"]'
+
+    ActionMailer::Base.deliveries.clear
   end
 
   test "invalid signup information" do
@@ -37,6 +39,37 @@ class UsersSignupTest < ActionDispatch::IntegrationTest
         }
       }
     end
+
+    assert_equal 1, ActionMailer::Base.deliveries.size
+
+    user = assigns :user
+
+    assert_not user.activated?
+
+    # Try to go to show page
+    get user_path(user)
+
+    assert_redirected_to root_url
+
+    # Try to log in before activation.
+    log_in_as user
+
+    assert_not user_is_logged_in?
+
+    # Invalid activation token
+    get edit_account_activation_path("invalid token", email: user.email)
+
+    assert_not user_is_logged_in?
+
+    # Valid token, wrong email
+    get edit_account_activation_path(user.activation_token, email: 'wrong')
+
+    assert_not user_is_logged_in?
+
+    # Valid activation token
+    get edit_account_activation_path(user.activation_token, email: user.email)
+
+    assert user.reload.activated?
 
     follow_redirect!
 
