@@ -1,0 +1,24 @@
+- provide :title, 'Reset password'
+
+h1 Reset password
+
+.row
+  .col-md-6.offset-3
+    = form_for @user, url: password_reset_path(params[:id]) do |f|
+      = render 'shared/error_notifications', object: f.object
+
+      = hidden_field_tag :email, @user.email
+
+      .form-group
+        = f.label :password do
+          ' Password
+          em [] (6 characters minimum)
+
+        = f.password_field :password, autofocus: true, autocomplete: "off", class: "form-control"
+
+      .form-group
+        = f.label :password_confirmation
+        = f.password_field :password_confirmation, autocomplete: "off", class: "form-control"
+
+      .form-group
+        = f.submit "Submit new password", class: "btn btn-primary form-control"

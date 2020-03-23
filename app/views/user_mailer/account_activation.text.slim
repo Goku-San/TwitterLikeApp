@@ -1,6 +1,7 @@
 ' Hi #{@user.name},
 
-' Welcome to TwitterLikeApp! Click on the link below to activate your account:
+  Welcome to TwitterLikeApp! To activate your account copy the link below:
 
-= "\n\n"
-= edit_account_activation_url(@user.activation_token, email: @user.email)
+  #{edit_account_activation_url(@user.activation_token, email: @user.email)}
+
+  Open new tab/window in your browser of choice, paste and go.

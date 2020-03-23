@@ -22,4 +22,7 @@ Rails.application.routes.draw do
 
   # Account activations
   resources :account_activations, only: :edit
+
+  # Password resets
+  resources :password_resets, except: %i[index show destroy]
 end

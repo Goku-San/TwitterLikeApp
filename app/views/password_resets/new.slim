@@ -1,0 +1,13 @@
+- provide :title, "Reset password"
+
+h1 Reset password
+
+.row
+  .col-md-6.offset-3
+    = form_for :password_reset, url: password_resets_path do |f|
+      .form-group
+        = f.label :email
+        = f.email_field :email, autofocus: true, class: "form-control"
+
+      .form-group
+        = f.submit "Submit", class: "btn btn-primary form-control"
