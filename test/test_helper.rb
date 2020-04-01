@@ -8,13 +8,11 @@ class ActiveSupport::TestCase
 
   # Add more helper methods to be used by all tests here...
   include ApplicationHelper
-  include SessionsHelper
 
   def base_title
     "TwitterLikeApp"
   end
 
-  # Turns out that this method is unnecessary because I can include SessionsHelper
   def user_is_logged_in?
     !session[:user_id].nil?
   end

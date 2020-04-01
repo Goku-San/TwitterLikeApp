@@ -1,5 +1,6 @@
 class SessionsController < ApplicationController
-  before_action :set_user, only: :create
+  before_action :require_logout, only: %i[new create]
+  before_action :set_user,       only: :create
 
   def new; end
 

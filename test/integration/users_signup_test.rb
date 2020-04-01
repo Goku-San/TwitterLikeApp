@@ -2,14 +2,14 @@ require 'test_helper'
 
 class UsersSignupTest < ActionDispatch::IntegrationTest
   def setup
+    ActionMailer::Base.deliveries.clear
+
     get signup_path
 
     assert_template 'users/new'
 
     assert_select 'form#new_user'
     assert_select 'form[action="/signup"]'
-
-    ActionMailer::Base.deliveries.clear
   end
 
   test "invalid signup information" do
@@ -49,7 +49,7 @@ class UsersSignupTest < ActionDispatch::IntegrationTest
     # Try to go to show page
     get user_path(user)
 
-    assert_redirected_to root_url
+    assert_redirected_to login_url
 
     # Try to log in before activation.
     log_in_as user
@@ -78,6 +78,6 @@ class UsersSignupTest < ActionDispatch::IntegrationTest
     assert_select 'div#notifications'
     assert_select 'div.alert-success'
 
-    assert logged_in?
+    assert user_is_logged_in?
   end
 end

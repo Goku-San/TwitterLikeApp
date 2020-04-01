@@ -1,18 +1,15 @@
 class UsersController < ApplicationController
-  before_action :logged_out_user, only:   %i[index edit update destroy]
+  before_action :require_login,   except: %i[new create]
   before_action :find_user_by_id, except: %i[index new create]
+  before_action :require_logout,  only:   %i[new create]
   before_action :correct_user,    only:   %i[edit update]
-  before_action :admin_or_correct_user, only: :destroy
+  before_action :admin_or_correct_user,   only: :destroy
 
   def index
     @pagy, @users = pagy User.activated_users, items: 10, size: [1, 1, 1, 1]
   end
 
-  def show
-    return if @user.activated?
-
-    redirect_to root_url
-  end
+  def show; end
 
   def new
     @user = User.new
@@ -55,21 +52,6 @@ class UsersController < ApplicationController
   end
 
   private
-
-  # TODO: Fix sign up route when user is logged in
-  # def logged_in_user
-  #   return unless logged_in?
-
-  #   redirect_back fallback_location: '/', allow_other_host: false
-  # end
-
-  def logged_out_user
-    return if logged_in?
-
-    store_location
-
-    redirect_to login_path, flash: { danger: "Please log in" }
-  end
 
   def find_user_by_id
     @user = User.find params[:id]
