@@ -1,8 +1,19 @@
 - provide :title, @user.name
 
 .row
-  aside.col-md-4
+  aside.col-sm-4
     section.user-info
       h1
         ' #{image_tag (gravatar_for @user), class: "rounded float-left mr-1", size: "64x64"}
         ' #{@user.name}
+
+  section.col-sm-8
+    - if @microposts.any?
+      .posts
+        h3 Microposts(#{@user.microposts.count})
+
+        ul.list-group.list-group-flush.microposts
+          = render @microposts
+
+        .pagination-sm.mt-4
+          == pagy_bootstrap_nav_js @post

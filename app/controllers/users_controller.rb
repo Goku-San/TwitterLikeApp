@@ -9,7 +9,9 @@ class UsersController < ApplicationController
     @pagy, @users = pagy User.activated_users, items: 10, size: [1, 1, 1, 1]
   end
 
-  def show; end
+  def show
+    @post, @microposts = pagy @user.microposts, items: 10, size: [1, 1, 1, 1]
+  end
 
   def new
     @user = User.new

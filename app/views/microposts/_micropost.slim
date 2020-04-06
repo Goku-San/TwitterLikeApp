@@ -1,0 +1,11 @@
+li.list-group-item id="micropost-#{micropost.id}"
+  .media
+    = link_to \
+      image_tag(gravatar_for(micropost.user, size: 50), class: "rounded mr-3"),
+      micropost.user,
+      class: "align-self-center"
+
+    .media-body
+      p.user.mt-0.mb-0 = link_to micropost.user.name, micropost.user
+      p.content.mt-0.mb-0 = micropost.content
+      p.timestamp.mt-0.mb-0.text-muted Posted #{time_ago_in_words micropost.created_at} ago.
