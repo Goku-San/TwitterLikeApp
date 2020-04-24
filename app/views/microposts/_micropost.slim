@@ -9,3 +9,6 @@ li.list-group-item id="micropost-#{micropost.id}"
       p.user.mt-0.mb-0 = link_to micropost.user.name, micropost.user
       p.content.mt-0.mb-0 = micropost.content
       p.timestamp.mt-0.mb-0.text-muted Posted #{time_ago_in_words micropost.created_at} ago.
+
+      - if owner? micropost.user
+        = link_to "delete", micropost, method: :delete, data: { confirm: "You sure?" }

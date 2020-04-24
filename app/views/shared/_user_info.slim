@@ -1,0 +1,8 @@
+= link_to \
+  image_tag(gravatar_for(current_user, size: 64), class: "rounded float-left mr-2"),
+  current_user
+
+h1 = current_user.name
+
+span = link_to "view my profile", current_user
+span = pluralize current_user.microposts.count, "micropost"

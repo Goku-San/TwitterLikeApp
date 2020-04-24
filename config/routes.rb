@@ -25,4 +25,7 @@ Rails.application.routes.draw do
 
   # Password resets
   resources :password_resets, except: %i[index show destroy]
+
+  # Microposts
+  resources :microposts, only: %i[create destroy]
 end

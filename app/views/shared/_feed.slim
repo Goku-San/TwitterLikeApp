@@ -1,0 +1,6 @@
+- if @feed_items.any?
+  ul.list-group.list-group-flush.microposts
+    = render @feed_items
+
+  .pagination-sm.mt-4
+    == pagy_bootstrap_nav_js @feed

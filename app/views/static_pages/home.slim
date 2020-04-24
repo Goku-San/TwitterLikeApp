@@ -1,14 +1,31 @@
-.center.jumbotron
-  h1 TwitterLikeApp
-  p
-    ' This is the home page for the
+- if logged_in?
+  .row
+    aside.col-md-4
+      section.user-info
+        = render 'shared/user_info'
 
-    a href="https://www.railstutorial.org/" rel="noreferrer noopener" target="_blank"
+      section.micropost-form
+        = render 'shared/micropost_form'
 
-      em Ruby on Rails Tutorial
+    section.col-md-8
+      .posts
+        h3 Micropost Feed
 
-    |  sample application.
+        = render 'shared/feed'
+- else
+  .center.jumbotron
+    h1 TwitterLikeApp
 
-  = link_to "Sign up now!", signup_path, class: "btn btn-lg btn-primary" unless logged_in?
+    p
+      ' This is the home page for the
 
-img src="/assets/img_2.jpg" alt="Cat pic here" style="width: 800px; height: 500px;"
+      a href="https://www.railstutorial.org/" rel="noreferrer noopener" target="_blank"
+
+        em Ruby on Rails Tutorial
+
+      |  sample application.
+
+    = link_to "Sign up now!", signup_path, class: "btn btn-lg btn-primary"
+    / unless logged_in?
+
+  img src="/assets/img_2.jpg" alt="Cat pic here" style="width: 800px; height: 500px;"
