@@ -1,0 +1,33 @@
+- provide :title, @title
+
+.row
+  aside.col-sm-4
+    section.user-info
+      = image_tag (gravatar_for @user), class: "rounded float-left mr-1", size: "64x64"
+
+      h1 = @user.name
+
+      span = link_to 'view my profile', @user
+      span
+        b Microposts:
+
+        =< @user.microposts.count
+
+    section.stats
+      = render 'shared/stats'
+
+    - if @users.any?
+      section.user-avatars
+        - (@user_following || @user_followers).each do |user|
+          = link_to user do
+            = image_tag (gravatar_for user), class: "rounded float-left mr-1 mb-1", size: "30x30"
+
+  .col-sm-8
+    h3 = @title
+
+    - if @users.any?
+      ul.list-group.list-group-flush.follow
+        = render @users
+
+      .pagination-sm.mt-4
+        == pagy_bootstrap_nav_js @followers || @following

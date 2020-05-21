@@ -3,7 +3,9 @@ class UsersController < ApplicationController
   before_action :find_user_by_id, except: %i[index new create]
   before_action :require_logout,  only:   %i[new create]
   before_action :correct_user,    only:   %i[edit update]
-  before_action :admin_or_correct_user,   only: :destroy
+
+  before_action :admin_or_correct_user, only: %i[destroy following followers]
+  # before_action :admin_or_correct_user,   only: :destroy
 
   def index
     @pagy, @users = pagy User.activated_users, items: 10, size: [1, 1, 1, 1]
@@ -51,6 +53,22 @@ class UsersController < ApplicationController
 
       redirect_to root_url, flash: { info: "Sorry to see you go..." }
     end
+  end
+
+  def following
+    @title = "Following"
+    @user_following = @user.following
+    @following, @users = pagy @user_following, items: 10, size: [1, 1, 1, 1]
+
+    render 'show_follow'
+  end
+
+  def followers
+    @title = "Followers"
+    @user_followers = @user.followers
+    @followers, @users = pagy @user_followers, items: 10, size: [1, 1, 1, 1]
+
+    render 'show_follow'
   end
 
   private

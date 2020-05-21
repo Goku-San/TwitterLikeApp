@@ -119,16 +119,16 @@ class UserTest < ActiveSupport::TestCase
   end
 
   test "should follow and unfollow a user" do
-    goku    = users :goku
-    vanessa = users :vanessa
+    goku = users :goku
+    lana = users :lana
 
-    assert_not goku.following? vanessa
+    assert_not goku.following? lana
 
-    goku.follow vanessa
-    assert goku.following? vanessa
-    assert vanessa.followers.include? goku
+    goku.follow lana
+    assert goku.following? lana
+    assert lana.followers.include? goku
 
-    goku.unfollow vanessa
-    assert_not goku.following? vanessa
+    goku.unfollow lana
+    assert_not goku.following? lana
   end
 end

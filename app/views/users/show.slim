@@ -7,7 +7,12 @@
         ' #{image_tag (gravatar_for @user), class: "rounded float-left mr-1", size: "64x64"}
         ' #{@user.name}
 
+    section.stats
+      = render 'shared/stats'
+
   section.col-sm-8
+    = render 'follow_form'
+
     - if @microposts.any?
       .posts
         h3 Microposts(#{@user.microposts.count})

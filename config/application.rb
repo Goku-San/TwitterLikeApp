@@ -27,5 +27,8 @@ module TwitterLikeApp
 
     # Don't generate system test files.
     config.generators.system_tests = nil
+
+    # Include the authenticity token in remote forms.
+    config.action_view.embed_authenticity_token_in_remote_forms = true
   end
 end

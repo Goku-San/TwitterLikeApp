@@ -13,7 +13,11 @@ Rails.application.routes.draw do
   # Custom route for pagy
   get 'users/page/:page', to: 'users#index', as: :pagy
 
-  resources :users, except: %i[new create]
+  resources :users, except: %i[new create] do
+    member do
+      get :following, :followers
+    end
+  end
 
   # Sessions login/logout
   get    "login",  to: "sessions#new"
@@ -28,4 +32,7 @@ Rails.application.routes.draw do
 
   # Microposts
   resources :microposts, only: %i[create destroy]
+
+  # Relationships
+  resources :relationships, only: %i[create destroy]
 end

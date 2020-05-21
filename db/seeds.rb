@@ -1,7 +1,8 @@
-puts "Cleaning databse from old records..." if User.any? || Micropost.any?
+puts "Cleaning databse from old records..." if User.any? || Micropost.any? || Relationship.any?
 
 User.destroy_all if User.any?
 Micropost.destroy_all if Micropost.any?
+Relationship.destroy_all if Relationship.any?
 
 puts "Seeding database..."
 
@@ -35,5 +36,15 @@ users = User.order(:created_at).take 6
 
   users.each { |user| user.microposts.create! content: content }
 end
+
+# Following relationships
+users = User.all
+user  = users.first
+
+following = users[2..50]
+followers = users[3..40]
+
+following.each { |followed| user.follow followed }
+followers.each { |follower| follower.follow user }
 
 puts "Database successfuly seeded!"
