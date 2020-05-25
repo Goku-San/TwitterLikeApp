@@ -1,6 +1,8 @@
 require 'test_helper'
 
 class FollowingTest < ActionDispatch::IntegrationTest
+  include Pagy::Backend
+
   def setup
     @goku = users :goku
     @lana = users :lana
@@ -64,11 +66,13 @@ class FollowingTest < ActionDispatch::IntegrationTest
     end
   end
 
-  # test "feed on Home page" do
-  #   get root_path
+  test "feed on Home page" do
+    get root_path
 
-  #   @goku.feed.paginate(page: 1, per_page: 10).each do |micropost|
-  #     assert_match CGI.escapeHTML(micropost.content), response.body
-  #   end
-  # end
+    @feed, @feed_items = pagy @goku.feed, items: 10, page: 1
+
+    @feed_items.each do |post|
+      assert_match CGI.escapeHTML(post.content), response.body
+    end
+  end
 end
