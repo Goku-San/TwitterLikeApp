@@ -131,4 +131,25 @@ class UserTest < ActiveSupport::TestCase
     goku.unfollow lana
     assert_not goku.following? lana
   end
+
+  test "feed should have the right posts" do
+    goku   = users :goku
+    malory = users :malory
+    lana   = users :lana
+
+    # Posts from followed user
+    malory.microposts.each do |post_following|
+      assert lana.feed.include? post_following
+    end
+
+    # Posts from self
+    goku.microposts.each do |post_self|
+      assert goku.feed.include? post_self
+    end
+
+    # Posts from unfollowed user
+    malory.microposts.each do |post_unfollowed|
+      assert_not goku.feed.include? post_unfollowed
+    end
+  end
 end
