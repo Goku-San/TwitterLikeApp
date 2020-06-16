@@ -1,0 +1,16 @@
+.row
+  aside.col-md-4
+    section.user-info
+      = render 'shared/user_info'
+
+    section.stats
+      = render 'shared/stats'
+
+    section.micropost-form
+      = render 'shared/micropost_form'
+
+  section.col-md-8
+    .posts
+      h3 Micropost Feed
+
+      = render 'shared/feed'

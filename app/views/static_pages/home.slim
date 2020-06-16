@@ -1,34 +1,15 @@
-- if logged_in?
-  .row
-    aside.col-md-4
-      section.user-info
-        = render 'shared/user_info'
+.center.jumbotron
+  h1 TwitterLikeApp
 
-      section.stats
-        = render 'shared/stats'
+  p
+    ' This is the home page for the
 
-      section.micropost-form
-        = render 'shared/micropost_form'
+    a href="https://www.railstutorial.org/" rel="noreferrer noopener" target="_blank"
 
-    section.col-md-8
-      .posts
-        h3 Micropost Feed
+      em Ruby on Rails Tutorial
 
-        = render 'shared/feed'
-- else
-  .center.jumbotron
-    h1 TwitterLikeApp
+    |  sample application.
 
-    p
-      ' This is the home page for the
+  = link_to "Sign up now!", signup_path, class: "btn btn-lg btn-primary"
 
-      a href="https://www.railstutorial.org/" rel="noreferrer noopener" target="_blank"
-
-        em Ruby on Rails Tutorial
-
-      |  sample application.
-
-    = link_to "Sign up now!", signup_path, class: "btn btn-lg btn-primary"
-    / unless logged_in?
-
-  img src="/assets/five_parrots.jpg" alt="Five parrots" style="width: 800px; height: 500px;"
+img src="/assets/five_parrots.jpg" alt="Five parrots" style="width: 800px; height: 500px;"

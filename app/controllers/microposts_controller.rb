@@ -1,4 +1,6 @@
 class MicropostsController < ApplicationController
+  include CurrentUserFeed
+
   before_action :require_login
 
   def create
@@ -7,8 +9,7 @@ class MicropostsController < ApplicationController
     if @micropost.save
       redirect_to root_url, flash: { success: "Micropost created!" }
     else
-      @feed_items = [] # Temporary solution
-      render 'static_pages/home'
+      feed_items
     end
   end
 

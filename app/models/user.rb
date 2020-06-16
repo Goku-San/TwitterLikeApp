@@ -1,4 +1,6 @@
 class User < ApplicationRecord
+  include CurrentUserFeed
+
   attr_accessor :remember_token, :activation_token, :reset_password_token
 
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i.freeze
@@ -94,14 +96,7 @@ class User < ApplicationRecord
     reset_sent_at < 2.hours.ago
   end
 
-  # Returns a user's status feed
-  def feed
-    following_ids = "SELECT followed_id FROM relationships WHERE  follower_id = :user_id"
-
-    Micropost.where "user_id IN (#{following_ids}) OR user_id = :user_id", user_id: id
-  end
-
-  # # Follows a user.
+  # Follows a user.
   def follow other_user
     active_relationships.create followed_id: other_user.id
   end
