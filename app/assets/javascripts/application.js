@@ -20,10 +20,3 @@
 //= require_tree .
 
 window.addEventListener("turbolinks:load", Pagy.init);
-
-// For disabling browsers back button
-// $(document).ready(() => {
-//   const disablePrev = () => { window.history.forward(); }
-//   window.onload = disablePrev();
-//   window.onpageshow = (e) => { if (e.persisted) disablePrev(); }
-// });
