@@ -14,7 +14,7 @@
         =< @user.microposts.count
 
     section.stats
-      = render 'shared/stats'
+      = render 'shared/stats', user: @user
 
     - if @users.any?
       section.user-avatars
