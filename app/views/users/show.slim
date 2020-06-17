@@ -11,7 +11,7 @@
       = render 'shared/stats'
 
   section.col-sm-8
-    = render 'follow_form'
+    = render 'follow_form', user: @user
 
     - if @microposts.any?
       .posts
