@@ -23,9 +23,13 @@ class UsersController < ApplicationController
     @user = User.new user_params
 
     if @user.save
-      @user.send_activation_email
+      log_in @user
+      redirect_to @user, flash: { info: "Welome #{@user}." }
 
-      redirect_to root_url, flash: { info: "Please check your email to activate your account!" }
+      # These two lines are commented to disable sending confirmation email
+      # @user.send_activation_email
+
+      # redirect_to root_url, flash: { info: "Please check your email to activate your account!" }
     else
       render :new
     end

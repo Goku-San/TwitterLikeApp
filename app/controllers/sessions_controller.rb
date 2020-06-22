@@ -7,7 +7,8 @@ class SessionsController < ApplicationController
   def create
     # if @user && @user.authenticate(params[:session][:password])
     if @user&.authenticate(params[:session][:password])
-      return activate_user! unless @user.activated?
+      # This line is commented to disable user confirmation email
+      # return activate_user! unless @user.activated?
 
       login_active_user
     else
