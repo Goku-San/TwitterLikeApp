@@ -24,7 +24,7 @@ class UsersController < ApplicationController
 
     if @user.save
       log_in @user
-      redirect_to @user, flash: { info: "Welome #{@user}." }
+      redirect_to @user, flash: { info: "Welome #{@user.name}." }
 
       # These two lines are commented to disable sending confirmation email
       # @user.send_activation_email
