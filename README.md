@@ -9,7 +9,7 @@ the *[4th edition tutorial](https://www.learnenough.com/ruby-on-rails-4th-editio
 
 ## Getting started
 
-* Ruby version that I used for the tutorial ``` 2.6.5 ```.
+* Ruby version that I used for the tutorial ``` 2.6.6 ```.
 * Rails version that I used for the tutorial ``` 5.2.4.1 ```.
 
 To get started with the app, clone the repo and then install the needed gems:
@@ -30,7 +30,7 @@ Finally, run the test suite to verify that everything is working correctly:
 $ rails test
 ```
 
-If the test suite passes, you'll be ready to run the app in a local server:
+If the test suite passes, you'll be ready to run the app in development:
 
 ```
 $ rails server
