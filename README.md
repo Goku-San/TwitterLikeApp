@@ -31,6 +31,7 @@ $ rails test
 ```
 
 If the test suite passes, you'll be ready to run the app in development:
+One test fails, because I disabled the activation user accounts, rather commented out the code
 
 ```
 $ rails server
