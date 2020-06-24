@@ -10,7 +10,7 @@ the *[4th edition tutorial](https://www.learnenough.com/ruby-on-rails-4th-editio
 ## Getting started
 
 * Ruby version that I used for the tutorial ``` 2.6.6 ```.
-* Rails version that I used for the tutorial ``` 5.2.4.1 ```.
+* Rails version that I used for the tutorial ``` 5.2.4.3 ```.
 
 To get started with the app, clone the repo and then install the needed gems:
 
