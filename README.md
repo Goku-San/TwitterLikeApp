@@ -11,6 +11,7 @@ the *[4th edition tutorial](https://www.learnenough.com/ruby-on-rails-4th-editio
 
 * Ruby version that I used for the tutorial ``` 2.6.6 ```.
 * Rails version that I used for the tutorial ``` 5.2.4.3 ```.
+* Database that I used for the tutorial MariaDB, with ``` gem mysql2, '0.5.3' ```
 
 To get started with the app, clone the repo and then install the needed gems:
 
@@ -18,10 +19,10 @@ To get started with the app, clone the repo and then install the needed gems:
 $ bundle install
 ```
 
-Next, create the database && migrate:
+Next, create the database && migrate && seed:
 
 ```
-$ rails db:create && rails db:migrate
+$ rails db:create && rails db:migrate && rails db:seed
 ```
 
 Finally, run the test suite to verify that everything is working correctly:
