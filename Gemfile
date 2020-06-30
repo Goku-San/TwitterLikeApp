@@ -67,18 +67,24 @@ end
 
 group :development do
   gem 'listen', '3.2.1'
+
   # Access an interactive console on exception pages or by calling 'console' anywhere in the code.
   gem 'web-console', '3.7.0'
+
   # Spring speeds up development by keeping your application running in the background.
   # Read more: https://github.com/rails/spring
   gem 'spring', '2.1.0'
   gem 'spring-watcher-listen', '2.0.1'
+
+  # For nice coloring output in terminal... ;)
+  gem 'shog', '0.2.1'
 end
 
 group :test do
   # This gem brings back -- assigns -- to your controller tests as well as
   # assert_template to both controller and integration tests.
   gem 'rails-controller-testing', '1.0.4'
+
   # Minitest provides a complete suite of testing facilities supporting
   # TDD, BDD, mocking, and benchmarking.
   gem 'minitest', '5.14.0'
@@ -86,6 +92,3 @@ end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 # gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
-
-# For nice coloring output in terminal... ;)
-gem 'shog', '0.2.1'
