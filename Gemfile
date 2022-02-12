@@ -17,7 +17,7 @@ gem 'slim', '4.0.1'
 gem 'slim-rails', '3.2.0'
 
 # Use Puma as the app server
-gem 'puma', '4.3.8'
+gem 'puma', '5.6.2'
 
 # Use SCSS/SASS for stylesheets
 gem 'sassc-rails', '2.1.2'
